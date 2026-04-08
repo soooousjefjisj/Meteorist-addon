@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Meteorist - Best Meteor Addon</title>
+    <title>Meteorist - Elite Meteor Enhancement</title>
 
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: white;
-            overflow: hidden;
-            background: black;
+            background: #000;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Background animation */
+        /* Warp-Speed Background */
         canvas {
             position: fixed;
             top: 0;
@@ -21,170 +22,295 @@
             z-index: -1;
         }
 
-        .container {
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover { color: #00ffff; }
+
+        /* Hero Section (Compressed to move content up) */
+        .hero {
+            height: 70vh; /* Reduced height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 100px 20px;
+            padding: 0 20px;
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 5em;
             color: #00ffff;
+            margin: 0;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
         }
 
-        p {
-            font-size: 1.2em;
-            max-width: 600px;
-            margin: auto;
+        .hero p {
+            font-size: 1.4em;
+            color: #ccc;
+            max-width: 700px;
+            margin-top: 10px;
         }
 
-        .btn {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 18px;
+        /* Section Styling */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            border-color: #00ffff;
+            transform: translateY(-5px);
+            background: rgba(0, 255, 255, 0.03);
+        }
+
+        .card h3 { font-size: 1.6em; margin-bottom: 10px; color: #00ffff; }
+        .card p { line-height: 1.6; color: #aaa; margin-bottom: 0; }
+
+        /* Installation Guide */
+        .steps {
+            background: rgba(0, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .step {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-num {
             background: #00ffff;
             color: black;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: white;
-        }
-
-        .counter-box {
-            margin-top: 40px;
-            padding: 10px;
-            border: 1px solid #00ffff;
-            display: inline-block;
-            border-radius: 5px;
-            background: rgba(0, 255, 255, 0.05);
-            min-width: 120px;
-        }
-
-        /* Added style for the live number */
-        #count-display {
-            font-size: 1.5em;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            color: white;
-            display: block;
+            flex-shrink: 0;
             margin-top: 5px;
         }
+
+        .warning-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            color: #ff8888;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        /* Download Button */
+        .download-btn {
+            padding: 18px 50px;
+            font-size: 1.3em;
+            background: #00ffff;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: 0.3s;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .download-btn:hover { background: #fff; transform: scale(1.05); }
+
     </style>
 </head>
 <body>
 
+<nav>
+    <a href="#features">Features</a>
+    <a href="#install">How to Install</a>
+    <a href="#addons">More Addons</a>
+</nav>
+
 <canvas id="stars"></canvas>
 
-<div class="container">
+<div class="hero">
     <h1>🌠 Meteorist</h1>
+    <p>Professional utility suite for the modern Meteor Client user.</p>
+    <a href="meteorist-1.21.11-2.jar" download class="download-btn">Download Meteorist JAR</a>
+</div>
 
-    <p>
-        Meteorist is the #1 best Meteor addon. It enhances your gameplay with powerful features,
-        smoother performance, and advanced utilities that give you a huge advantage.
-    </p>
-
-    <p style="margin-top: 15px;">
-        Features include:
-        <br>✔ Advanced combat tools
-        <br>✔ Custom modules
-        <br>✔ Clean UI
-        <br>✔ Optimized performance
-    </p>
-
-    <p style="margin-top:20px; font-size: 0.9em; color: #ccc;">
-        (Not made by me)
-    </p>
-
-    <!-- The button now has an ID so the script can "hear" when you click it -->
-    <a href="meteorist-1.21.11-2.jar" id="downloadBtn" download class="btn">Download Meteorist</a>
-
-    <br>
-
-    <!-- THE DOWNLOAD/VISIT COUNTER -->
-    <div class="counter-box">
-        <p style="font-size: 0.8em; color: #00ffff; margin-bottom: 5px;">TOTAL DOWNLOADS</p>
-        <!-- Replaced static image with a dynamic number ID -->
-        <span id="count-display">...</span>
+<section id="features">
+    <h2>Elite Capabilities</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Hyper-Crystal</h3>
+            <p>Advanced multi-threaded ender crystal logic designed to beat standard rotation delays.</p>
+        </div>
+        <div class="card">
+            <h3>Zero-Delay Killaura</h3>
+            <p>Perfect packet synchronization that aligns your attacks with server-side ticks.</p>
+        </div>
+        <div class="card">
+            <h3>Advanced Flight</h3>
+            <p>Vertical velocity spoofing modes built specifically for modern anti-cheat bypasses.</p>
+        </div>
     </div>
+</section>
+
+<section id="install">
+    <h2>How to Install</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <div>
+                <strong>Download the JAR</strong>
+                <p>Click the download button above to get the latest Meteorist file.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div>
+                <strong>Locate Mods Folder</strong>
+                <p>Open your <code>.minecraft</code> folder and navigate to the <code>mods</code> folder.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div>
+                <strong>Install Addon</strong>
+                <p>Move the <code>meteorist-1.21.11-2.jar</code> file directly into the <code>mods</code> folder.</p>
+            </div>
+        </div>
+        <div class="warning-box">
+            <strong>⚠️ IMPORTANT:</strong> You must have <strong>Meteor Client</strong> already installed in your mods folder for this addon to work!
+        </div>
+    </div>
+</section>
+
+<section id="addons">
+    <h2>Other Meteor Addons</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Blackout</h3>
+            <p>A powerful combat-oriented addon featuring highly customizable CrystalAura and Killaura.</p>
+        </div>
+        <div class="card">
+            <h3>Vector</h3>
+            <p>Focuses on advanced movement and visual utilities for technical players.</p>
+        </div>
+        <div class="card">
+            <h3>Trouser-Streak</h3>
+            <p>The ultimate griefing and exploration toolset for finding bases and world-seeds.</p>
+        </div>
+    </div>
+</section>
+
+<div style="text-align: center; padding: 50px 0;">
+    <p style="color: #444; font-size: 0.8em;">(Not made by me)</p>
 </div>
 
 <script>
-    // --- YOUR ORIGINAL STAR BACKGROUND EFFECT ---
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
+    let stars = [];
+    let scrollY = 0;
+    let lastScrollY = 0;
+    let warpFactor = 0;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let stars = [];
-
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 400; i++) {
         stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
+            z: Math.random() * canvas.width,
             size: Math.random() * 2
         });
     }
 
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    window.addEventListener('scroll', () => {
+        scrollY = window.pageYOffset;
+        warpFactor = Math.abs(scrollY - lastScrollY) * 0.4;
+        lastScrollY = scrollY;
+    });
+
+    function draw() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
         ctx.fillStyle = "white";
-
         stars.forEach(star => {
+            let x = (star.x - canvas.width / 2) * (canvas.width / star.z) + canvas.width / 2;
+            let y = (star.y - canvas.height / 2) * (canvas.width / star.z) + canvas.height / 2;
+            let s = star.size * (canvas.width / star.z);
+
+            let stretch = 1 + (warpFactor * 0.12);
             ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.ellipse(x, y, s, s * stretch, 0, 0, Math.PI * 2);
             ctx.fill();
-        });
-    }
 
-    function animate() {
-        stars.forEach(star => {
-            star.y += 0.5;
-            if (star.y > canvas.height) {
-                star.y = 0;
-            }
+            star.z -= 1 + (warpFactor);
+            if (star.z <= 0) star.z = canvas.width;
         });
 
-        drawStars();
-        requestAnimationFrame(animate);
+        warpFactor *= 0.94;
+        requestAnimationFrame(draw);
     }
 
-    animate();
+    draw();
 
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    });
-
-    // --- ADDED DOWNLOAD COUNTER LOGIC ---
-    const countDisplay = document.getElementById('count-display');
-    const downloadBtn = document.getElementById('downloadBtn');
-    
-    // This name connects your site to the counter. 
-    // You can change "meteorist-addon-v1" to "v2" if you ever want to restart the count at 0.
-    const namespace = "meteorist-addon-v1"; 
-
-    // 1. Get the current count from the server when the page opens
-    fetch(`https://counterapi.dev{namespace}/downloads`)
-        .then(res => res.json())
-        .then(data => {
-            countDisplay.innerText = data.count || 0;
-        })
-        .catch(() => {
-            countDisplay.innerText = "0";
-        });
-
-    // 2. When someone clicks the download button, tell the server to add 1
-    downloadBtn.addEventListener('click', () => {
-        fetch(`https://counterapi.dev{namespace}/downloads/up`)
-            .then(res => res.json())
-            .then(data => {
-                countDisplay.innerText = data.count;
-            });
     });
 </script>
 
