@@ -62,6 +62,16 @@
             display: inline-block;
             border-radius: 5px;
             background: rgba(0, 255, 255, 0.05);
+            min-width: 120px;
+        }
+
+        /* Added style for the live number */
+        #count-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            display: block;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -89,20 +99,21 @@
         (Not made by me)
     </p>
 
-    <!-- Updated Button to properly trigger download -->
-    <a href="meteorist-1.21.11-2.jar" download class="btn">Download Meteorist</a>
+    <!-- The button now has an ID so the script can "hear" when you click it -->
+    <a href="meteorist-1.21.11-2.jar" id="downloadBtn" download class="btn">Download Meteorist</a>
 
     <br>
 
     <!-- THE DOWNLOAD/VISIT COUNTER -->
     <div class="counter-box">
         <p style="font-size: 0.8em; color: #00ffff; margin-bottom: 5px;">TOTAL DOWNLOADS</p>
-        <img src="https://hitwebcounter.com" title="Free Counter" Alt="web counter" border="0" />
+        <!-- Replaced static image with a dynamic number ID -->
+        <span id="count-display">...</span>
     </div>
 </div>
 
 <script>
-    // Star background effect
+    // --- YOUR ORIGINAL STAR BACKGROUND EFFECT ---
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
 
@@ -144,10 +155,36 @@
 
     animate();
 
-    // Fix canvas sizing on window resize
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+    });
+
+    // --- ADDED DOWNLOAD COUNTER LOGIC ---
+    const countDisplay = document.getElementById('count-display');
+    const downloadBtn = document.getElementById('downloadBtn');
+    
+    // This name connects your site to the counter. 
+    // You can change "meteorist-addon-v1" to "v2" if you ever want to restart the count at 0.
+    const namespace = "meteorist-addon-v1"; 
+
+    // 1. Get the current count from the server when the page opens
+    fetch(`https://counterapi.dev{namespace}/downloads`)
+        .then(res => res.json())
+        .then(data => {
+            countDisplay.innerText = data.count || 0;
+        })
+        .catch(() => {
+            countDisplay.innerText = "0";
+        });
+
+    // 2. When someone clicks the download button, tell the server to add 1
+    downloadBtn.addEventListener('click', () => {
+        fetch(`https://counterapi.dev{namespace}/downloads/up`)
+            .then(res => res.json())
+            .then(data => {
+                countDisplay.innerText = data.count;
+            });
     });
 </script>
 
