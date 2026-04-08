@@ -1,82 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Meteorist - Best Meteor Addon</title>
+    <meta charset="UTF-8">
+    <title>Meteorist - Best Meteor Addon</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
-    overflow: hidden;
-    background: radial-gradient(circle at center, #050510, #000);
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+            background: black;
+        }
 
-/* Background canvas */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
+        /* Background animation */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-/* Center card */
-.container {
-    text-align: center;
-    padding: 60px 30px;
-    margin: 80px auto;
-    width: 90%;
-    max-width: 700px;
+        .container {
+            text-align: center;
+            padding: 100px 20px;
+        }
 
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 40px rgba(0,255,255,0.2);
-}
+        h1 {
+            font-size: 3em;
+            color: #00ffff;
+        }
 
-/* Title */
-h1 {
-    font-size: 3em;
-    color: #00ffff;
-    text-shadow: 0 0 20px #00ffff;
-}
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: auto;
+        }
 
-/* Text */
-p {
-    font-size: 1.15em;
-    line-height: 1.6;
-    margin-top: 20px;
-}
+        .btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #00ffff;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-/* Button */
-.btn {
-    margin-top: 35px;
-    padding: 15px 40px;
-    font-size: 18px;
-    background: linear-gradient(45deg, #00ffff, #00aaff);
-    color: black;
-    border: none;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: 0.3s;
-    box-shadow: 0 0 20px rgba(0,255,255,0.6);
-}
+        .btn:hover {
+            background: white;
+        }
 
-.btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 40px rgba(0,255,255,1);
-}
-
-/* Disclaimer */
-.small {
-    margin-top: 20px;
-    font-size: 0.85em;
-    color: #aaa;
-}
-</style>
+        .counter-box {
+            margin-top: 40px;
+            padding: 10px;
+            border: 1px solid #00ffff;
+            display: inline-block;
+            border-radius: 5px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+    </style>
 </head>
-
 <body>
 
 <canvas id="stars"></canvas>
@@ -85,78 +73,82 @@ p {
     <h1>🌠 Meteorist</h1>
 
     <p>
-        The #1 Meteor addon designed to enhance your gameplay with powerful features,
-        smooth performance, and advanced utilities that give you a competitive edge.
+        Meteorist is the #1 best Meteor addon. It enhances your gameplay with powerful features,
+        smoother performance, and advanced utilities that give you a huge advantage.
     </p>
 
-    <p>
-        ✔ Advanced combat tools<br>
-        ✔ Custom modules<br>
-        ✔ Clean UI<br>
-        ✔ Optimized performance
+    <p style="margin-top: 15px;">
+        Features include:
+        <br>✔ Advanced combat tools
+        <br>✔ Custom modules
+        <br>✔ Clean UI
+        <br>✔ Optimized performance
     </p>
 
-    <p class="small">(Not made by me)</p>
+    <p style="margin-top:20px; font-size: 0.9em; color: #ccc;">
+        (Not made by me)
+    </p>
 
-    <button class="btn" onclick="downloadAddon()">Download Meteorist</button>
+    <!-- Updated Button to properly trigger download -->
+    <a href="meteorist-1.21.11-2.jar" download class="btn">Download Meteorist</a>
+
+    <br>
+
+    <!-- THE DOWNLOAD/VISIT COUNTER -->
+    <div class="counter-box">
+        <p style="font-size: 0.8em; color: #00ffff; margin-bottom: 5px;">TOTAL DOWNLOADS</p>
+        <img src="https://hitwebcounter.com" title="Free Counter" Alt="web counter" border="0" />
+    </div>
 </div>
 
 <script>
-function downloadAddon() {
-    window.location.href = "meteorist-1.21.11-2.jar";
-}
+    // Star background effect
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
 
-/* Star animation */
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let stars = [];
-
-for (let i = 0; i < 250; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2,
-        speed: Math.random() * 0.7 + 0.2
-    });
-}
-
-function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    stars.forEach(star => {
-        ctx.beginPath();
-        ctx.fillStyle = "white";
-        ctx.shadowBlur = 5;
-        ctx.shadowColor = "white";
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
-}
-
-function animate() {
-    stars.forEach(star => {
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-            star.y = 0;
-            star.x = Math.random() * canvas.width;
-        }
-    });
-
-    drawStars();
-    requestAnimationFrame(animate);
-}
-
-animate();
-
-/* Resize fix */
-window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-});
+
+    let stars = [];
+
+    for (let i = 0; i < 200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2
+        });
+    }
+
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    function animate() {
+        stars.forEach(star => {
+            star.y += 0.5;
+            if (star.y > canvas.height) {
+                star.y = 0;
+            }
+        });
+
+        drawStars();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Fix canvas sizing on window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 </script>
 
 </body>
