@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Meteorist - Best Meteor Addon</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #050510, #000);
+}
+
+/* Background canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Center card */
+.container {
+    text-align: center;
+    padding: 60px 30px;
+    margin: 80px auto;
+    width: 90%;
+    max-width: 700px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(0,255,255,0.2);
+}
+
+/* Title */
+h1 {
+    font-size: 3em;
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff;
+}
+
+/* Text */
+p {
+    font-size: 1.15em;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+/* Button */
+.btn {
+    margin-top: 35px;
+    padding: 15px 40px;
+    font-size: 18px;
+    background: linear-gradient(45deg, #00ffff, #00aaff);
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0,255,255,0.6);
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(0,255,255,1);
+}
+
+/* Disclaimer */
+.small {
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="container">
+    <h1>🌠 Meteorist</h1>
+
+    <p>
+        The #1 Meteor addon designed to enhance your gameplay with powerful features,
+        smooth performance, and advanced utilities that give you a competitive edge.
+    </p>
+
+    <p>
+        ✔ Advanced combat tools<br>
+        ✔ Custom modules<br>
+        ✔ Clean UI<br>
+        ✔ Optimized performance
+    </p>
+
+    <p class="small">(Not made by me)</p>
+
+    <button class="btn" onclick="downloadAddon()">Download Meteorist</button>
+</div>
+
+<script>
+function downloadAddon() {
+    window.location.href = "meteorist-1.21.11-2.jar";
+}
+
+/* Star animation */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for (let i = 0; i < 250; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.7 + 0.2
+    });
+}
+
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    stars.forEach(star => {
+        ctx.beginPath();
+        ctx.fillStyle = "white";
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = "white";
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+}
+
+function animate() {
+    stars.forEach(star => {
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+            star.y = 0;
+            star.x = Math.random() * canvas.width;
+        }
+    });
+
+    drawStars();
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+/* Resize fix */
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
